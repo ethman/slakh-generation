@@ -36,7 +36,9 @@ Dataset (LMD) prior to using it.
 At the base of creating Slakh is a script called `render_by_instrument.py`, which looks for MIDI
 files that match a user-definable "band" definition, synthesizes each instrument separately using
 a VST host, and then mixes the resultant audio to have equal loudness according to the ITU-R 
-BS.1770-4 loudness standard.
+BS.1770-4 loudness standard. All audio is synthesized to .wav files and is output with the same
+directory structure as Slakh. See 
+[the Slakh utils repo for more info.](https://github.com/ethman/slakh-utils)
 
 The VST host used is called RenderMan. RenderMan is a C++ VST host (built on JUCE) that has python
 bindings. The source code is included here (in `RenderMan-master/`). The Linux and Mac versions of
@@ -212,6 +214,14 @@ the interface is highly specific to each VST. For generating Slakh, we saved pre
 (the `.nkm` files) and loaded those. For more information setting VST parameters see the RenderMan
 functions `get_plugin_parameters_description()` and `set_parameter()` or reach out to me.
 
+It should also be noted that Drums are represented here as MIDI program number 128 (0-based), or
+MIDI program number 129 (1-based). Within MIDI, drum tracks have a special flag that is separate
+from their instrument program number, as such to keep consistency with the other program numbers 
+throughout this script, they have tacked onto the end of the list as such.
+
+All 129 program numbers should be assigned to something. If there are patches you do not want to 
+synthesize, they should be represented here with an empty list for `"defs"`.
+
 
 ### Step 3b: Band Definition file and MIDI file lists
 
@@ -239,6 +249,13 @@ The first line `"key": "class"` is fixed (for now, possibly extensible in the fu
 `"band_def` determines which MIDI instrument classes a MIDI file must have to be selected to
 synthesize.
 
+The second way is by providing a MIDI file list. This is a text file that contains a list of 
+absolute paths to MIDI files (one per line). If this is provided, the script will not traverse
+the LMD to find MIDI file candidates, but rather will look through the provided list. This is nice
+if you need to rerender a specific set of files for some reason.
+
+These two methods are not mutually exclusive.
+
 
 ### Step 3c: `config.json`
 
@@ -249,19 +266,20 @@ script. Here is an annotated list of all of the variables:
 `kontakt_path`: Absolute path to the `.component` for Kontakt. 
 Usually `"/Library/Audio/Plug-Ins/Components/Kontakt.component"`. (`str`)   
 `kontakt_defs_dir`: Absolute path to the default Kontakt patch location. 
-Usually `"/Users/{{username}}/Library/Application Support/Native Instruments/Kontakt/default"`. (`str`)     
-`user_defs_dir`: Path to directory containing user defined patches (
-`.nkm` files created in step 2a, above). (`str`)  
+Usually `"/Users/{{username}}/Library/Application Support/Native Instruments/Kontakt/default"`. 
+(`str`)     
+`user_defs_dir`: Path to directory containing user defined patches (`.nkm` files created in 
+step 2a, above). (`str`)  
 `instrument_classes_file`: Path to json file that defines MIDI program number and classes. 
-Default `general_midi_inst_0based.json`. (`str`)  
+Default `general_midi_inst_0.json`. (`str`)  
 `defs_metadata_file`: Path to your Instrument Definition Metadata File as defined above. (`str`)  
 `output_dir`: Absolute path to a base directory where audio will be output to. (`str`)  
 `renderman_sr`: Sample rate that the audio will be synthesized at. (44.1kHz) (`int`)  
 `renderman_buf`: Buffer size for the hosted VSTs. (`int`)  
 `renderman_sleep`: Sleep time (in seconds) after a VST is loaded. Kontakt needs time to load 
-samples into memory. (`float`)  
+samples into memory. See [info in the gotchas below](#gotchas) (`float`)  
 `renderman_restart_lim`: The RenderMan engine can be glitchy (see below). This number is the of 
-stem files RenderMan will make before restarting. (`int`)  
+stem files RenderMan will make before restarting. See [info in the gotchas below](#gotchas) (`int`)  
 `random_seed`: Random seed for selecting MIDI files from the LMD. (`int`)  
 `max_num_files`: Total number of audio mixtures to generate. (`int`)  
 `separate_drums`: If true and if a MIDI file has multiple tracks for drums this will render them 
@@ -275,12 +293,14 @@ together. (`float`)
 `rerender_existing`: If true, will overwrite existing audio files that have been synthesized. 
 Else, will skip files if they've been seen before. Useful for restarting from a previously 
 crashed session. (`str`)  
-`band_definition_file`: 
-`midi_file_list`: rock_band_files_min_overall.txt
-`zero_based_midi`: If true, will 
+`band_definition_file`: A path to a json file containing a band definition file. See step 3b for 
+more details. Can be `null`. (`str`)  
+`midi_file_list`: A path to a text file with one MIDI file absolute path (from the LMD) per line. 
+See step 3b for more details. Can be `null`. (`str`)  
+`zero_based_midi`: If true, will read MIDI program numbers as 0-based. (`bool`)  
+
 
 ## Step 4: Running data generation script
-
 
 ### Step 4a: Install python script requirements
 
@@ -300,7 +320,8 @@ python render_by_instrument.py --config path/to/config.json
 
 All of the configurations for generation are defined in the json file, as formatted above.
 
-**Note:** This hasn't been tested with python 3 yet, so check python 2.
+**Note:** This hasn't been tested with python 3 yet, so use python 2. (Sorry, but our dependencies
+are old!)
 
  
 At a high level, this script works in three stages. 
@@ -343,8 +364,7 @@ swap between parsing 1-based and 0-based MIDI files. 0-based is a good setting f
 I recommend **NOT** parallelizing this script as loading many patches at once is quite resource
 intensive. **If you are planning on synthesizing many hours of audio give yourself time!** That 
 being said, I did try a few ways to speed this up and the three stage process outlined above seems 
-best if you do figure out a way to 
-efficiently parallelize this type of data generation,
+best, but if you do figure out a more way to efficiently parallelize this type of data generation,
 please let me know!
 
 **Restarting the Engine**  
@@ -356,7 +376,11 @@ above). I don't know if this is a problem with RenderMan or Kontakt/other VSTs. 
 Instruments engineers planned for the type of massive processing of MIDI files that occurs in this
 repo.
 
-
 **Loading the Engine**
+Some VSTs need a few seconds before they can accept note data to synthesize to audio. For instance,
+Kontakt needs to load gigabytes of sample data into memory. Therefore, there is a sleep timer set
+when a VST is initially loaded to let the VST completely load. If you are having trouble, open up
+your VST with a full DAW (Logic, Ableton, etc) and time it a few times to make sure you have given
+it enough sleep time.
 
 

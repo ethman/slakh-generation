@@ -122,15 +122,23 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
                  pgm0_is_piano=False, rerender_existing=False, band_classes_def=None,
                  same_pgms_diff=False, separate_drums=False, zero_based_midi=False):
     """
-    Goes through the entire LMD dataset (until a max num of files is read),
-    :param midi_paths:
-    :param max_num_files:
-    :param output_base_dir:
-    :param inst_classes:
-    :param defs_dict:
-    :param separate_drums:
-    :param pgm0_is_piano:
-    :return:
+    Loops through a list of `midi_paths` until `max_num_files` have been flagged for
+    synthesis
+    Args:
+        midi_paths:
+        max_num_files:
+        output_base_dir:
+        inst_classes:
+        defs_dict:
+        pgm0_is_piano:
+        rerender_existing:
+        band_classes_def:
+        same_pgms_diff:
+        separate_drums:
+        zero_based_midi:
+
+    Returns:
+
     """
     midi_files_read = 0
     defs_dict = defs_dict if not zero_based_midi else make_zero_based_midi(defs_dict)
