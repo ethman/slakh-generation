@@ -100,19 +100,33 @@ it should be configured correctly to build.
 - One common issue we ran into is not having Boost python installed or set up correctly (bindings
 between C++ and python). The easiest way to install it is with `homebrew`; make sure you get the
 python2 version (not sure if RenderMan has been tested with python3). The command is just 
-`brew install boost-python`.
+`brew install boost-python`. IIRC, `boost-python` points to bindings for python2, and
+`boost-python3` points to bindings for python3. We want python2 bindings, as I was unable to get
+python3 working with this old codebase (sorry! I know it's 2020 already!). You'll also need to know 
+the location of both `boost` and `boost-python`. Do this by running `brew info boost` and 
+`brew info boost-python`.
 
 - Then you need to make sure the XCode build settings are correct. The most common issue we 
 encountered was a linker issue--making sure that boost-python was able to find and build against
 the system's python dynamic libraries. To fix this, check your build settings in XCode. Double
 check that the build target is a dynamic library, and under the 'Target' build settings look for
-the 'Linker' heading. Make sure 'Other Linker Flags' has the following setting: 
-`-shared -lpython2.7 -lboost_python27`.
+the 'Linking' heading. Make sure 'Other Linker Flags' has the following setting: 
+`-shared -lpython2.7 -lboost_python27`. You might need to set 'Other Linker Flags' to
+`-shared -lpython -lboost_python27` (note the difference between `-lpython` and `-lpython2.7`), 
+depending on how boost is installed. If this doesn't work, make sure the linker's search paths 
+are set correctly under 'Search Paths' > 'Library Search Paths' on the same build page. I had
+to add the paths from boost and boost-python to get it to build 
+(`/usr/local/Cellar/boost-python/1.72.0/lib/**`, and 
+`/usr/local/Cellar/boost/1.72.0/include/boost/**` for me, as well as the 
+`$(inherited) "/usr/local/lib"` path that's included).
 
-- Press `[cmd]`-`[b]` to build.
+(Note: I was able to build with XCode 10.2.1 on OS X 10.14.6, and boost/boost-python 1.72.0)
+
+- Press `[cmd]`-`[b]` to build. Make sure to build in Debug mode. Currently this is hard coded 
+later.
 
 - If it builds successfully, you should have a file called `librenderman.so.dylib` 
-(in `RenderMan-master/Builds/MacOSX/build/Debug/` or `Release`). Rename that file to
+(in `RenderMan-master/Builds/MacOSX/build/Debug/`). Rename that file to
 `librenderman.so`. And now RenderMan is set up!
 
 
@@ -209,10 +223,11 @@ Example from `classes_strict.json`:
 
 All entries in `"defs": []` that end with `.nkm` will be loaded with Kontakt, and everything else
 will be loaded as a regular VST. Loading presets with other VSTs is highly dependent on how those 
-VSTs work. RenderMan does provide an interface for changing VST parameters programmatically, but
-the interface is highly specific to each VST. For generating Slakh, we saved presets for Kontakt
-(the `.nkm` files) and loaded those. For more information setting VST parameters see the RenderMan
-functions `get_plugin_parameters_description()` and `set_parameter()` or reach out to me.
+VSTs work. As of right now, this functionality does not work. However, RenderMan does provide an 
+interface for changing VST parameters programmatically, but the interface is highly specific to
+each VST. For generating Slakh, we saved presets for Kontakt (the `.nkm` files) and loaded those.
+For more information setting VST parameters see the RenderMan functions 
+`get_plugin_parameters_description()` and `set_parameter()` or reach out to me.
 
 It should also be noted that Drums are represented here as MIDI program number 128 (0-based), or
 MIDI program number 129 (1-based). Within MIDI, drum tracks have a special flag that is separate

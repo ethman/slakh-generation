@@ -16,8 +16,8 @@ bool RenderEngine::loadPreset (const std::string& path)
     File file = File(path);
     file.loadFileAsData(mb);
 //    bool loaded = VST3PluginFormat::loadFromFXBFile (plugin, mb.getData(), mb.getSize());
-    bool loaded = VST3PluginFormat::setStateFromVSTPresetFile(plugin, mb);
-    return loaded;
+//    bool loaded = VST3PluginFormat::setStateFromVSTPresetFile(plugin, mb);
+    return false;
 }
 
 //==============================================================================
