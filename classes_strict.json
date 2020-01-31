@@ -1,0 +1,467 @@
+{
+  "Acoustic Piano" : {
+    "class": "Piano",
+    "program_numbers" : [0, 1, 2, 4, 7],
+    "defs": [
+      "ragtime_piano.nkm",
+      "the_giant_hard_and_tough.nkm",
+      "the_giant_modern_studio.nkm",
+      "the_giant_vibrant.nkm",
+      "alicias_keys.nkm",
+      "the_grandeur.nkm",
+      "the_gentleman.nkm",
+      "grand_piano.nkm",
+      "upright_piano.nkm",
+      "harpsichord.nkm",
+      "concert_grand.nkm",
+      "august_foerster_grand.nkm"
+    ]
+  },
+
+  "Electric Piano": {
+    "class": "Piano",
+    "program_numbers": [0, 3, 5, 6, 8],
+    "defs": [
+      "scarbee_a_200.nkm",
+      "scarbee_clavinet_full.nkm",
+      "scarbee_pianet.nkm",
+      "scarbee_mark_I.nkm",
+      "wurly_ep.nkm"
+    ]
+  },
+
+  "Chromatic Percussion" : {
+    "class": "Chromatic Percussion",
+    "program_numbers": [9, 10, 11, 12, 13, 14, 15, 16],
+    "defs": [
+      "hybrid_keys_antique_toy.nkm",
+      "hybrid_keys_concert_marimba.nkm",
+      "hybrid_keys_futurebells.nkm",
+      "hybrid_keys_glockenspiel.nkm",
+      "hybrid_keys_hot_tropics.nkm",
+      "hybrid_keys_tube_vibraphone.nkm",
+      "celesta.nkm",
+      "glockenspiel.nkm",
+      "glockenspiel_essential.nkm",
+      "marimba.nkm",
+      "marimba_essential.nkm",
+      "tubular_bells_metal.nkm",
+      "tubular_bells_wood.nkm",
+      "xylophone.nkm",
+      "xylophone_essential.nkm"
+    ]
+  },
+
+  "Organ": {
+    "class" : "Organ",
+    "program_numbers": [17, 18, 19, 20, 21, 22, 23, 24],
+    "defs": [
+      "jazz_organ.nkm",
+      "tonewheel_organ_b3.nkm",
+      "tonewheel_organ_c3.nkm",
+      "tonewheel_organ_m3.nkm",
+      "transistor_compact.nkm",
+      "transistor_continental.nkm",
+      "organ_kh_grprplenum_manual.nkm",
+      "organ_kh_floeten_1_manual.nkm",
+      "fever.nkm",
+      "house_cat.nkm",
+      "musicology.nkm",
+      "outta_space.nkm"
+    ]
+  },
+
+  "Acoustic Guitar" : {
+    "class": "Guitar",
+    "program_numbers": [25, 26],
+    "defs": [
+      "nylon_guitar.nkm",
+      "nylon_guitar2.nkm",
+      "/Library/Audio/Plug-Ins/Components/AGML2.component"
+    ]
+  },
+
+  "Clean Electric Guitar": {
+    "class": "Guitar",
+    "program_numbers": [27, 28, 29, 32],
+    "defs": [
+      "jazz_guitar.nkm",
+      "jazz_guitar2.nkm",
+      "jazz_guitar3.nkm",
+      "jazz_guitar4.nkm",
+      "funk_guitar.nkm"
+
+    ]
+  },
+
+  "Distorted Electric Guitar": {
+    "class": "Guitar",
+    "program_numbers": [30, 31],
+    "defs": [
+      "rhythm_rock_guitar.nkm",
+      "solo_guitar.nkm",
+      "elektrik_guitar.nkm",
+      "rock_guitar.nkm",
+      "harmonic_guitar.nkm"
+    ]
+  },
+
+  "Acoustic Bass": {
+    "class": "Bass",
+    "program_numbers": [33],
+    "defs": [
+      "upright_bass.nkm",
+      "upright_bass2.nkm",
+      "jazz_upright.nkm"
+    ]
+  },
+
+  "Electric Bass": {
+    "class": "Bass",
+    "program_numbers": [34, 35, 36, 37, 38],
+    "defs": [
+      "classic_bass.nkm",
+      "funk_bass.nkm",
+      "pop_bass.nkm",
+      "scarbee_pre_bass.nkm",
+      "scarbee_mm_bass.nkm",
+      "scarbee_jay_bass_both.nkm",
+      "scarbee_jay_bass_slap_both.nkm",
+      "scarbee_rickenbacker_bass_palm_muted.nkm",
+      "scarbee_rickenbacker_bass.nkm"
+    ]
+  },
+
+  "Violin": {
+    "class": "Strings",
+    "program_numbers": [41],
+    "defs": [
+      "violin_ensemble.nkm",
+      "violin_solo.nkm",
+      "solo_strings.nkm"
+    ]
+  },
+
+  "Viola": {
+    "class": "Strings",
+    "program_numbers": [42],
+    "defs": [
+      "viola_ensemble.nkm",
+      "viola_solo.nkm",
+      "solo_strings.nkm"
+    ]
+  },
+
+  "Cello": {
+    "class": "Strings",
+    "program_numbers": [43],
+    "defs": [
+      "cello_ensemble.nkm",
+      "cello_solo.nkm",
+      "solo_strings.nkm"
+    ]
+  },
+
+  "Contrabass": {
+    "class": "Strings",
+    "program_numbers": [44],
+    "defs": [
+      "double_bass_ensemble.nkm",
+      "double_bass_solo.nkm",
+      "solo_strings.nkm"
+    ]
+  },
+
+  "String Ensemble": {
+    "class": "Strings",
+    "program_numbers": [45, 46, 49, 50],
+    "defs": [
+      "string_ensemble_essential.nkm",
+      "session_strings_pro_2_ensemble_modern.nkm",
+      "session_strings_pro_2_ensemble_traditional.nkm",
+      "string_ensemble.nkm"
+    ]
+  },
+
+  "Orchestral Hit": {
+    "class": "Strings",
+    "program_numbers": [56],
+    "defs": [
+
+    ]
+  },
+
+  "Timpani": {
+    "class": "Strings",
+    "program_numbers": [48],
+    "defs": [
+      "timpani.nkm"
+    ]
+  },
+
+  "Orchestral Harp": {
+    "class": "Strings",
+    "program_numbers": [47],
+    "defs": [
+      "harp.nkm"
+    ]
+  },
+
+  "Synth Strings": {
+    "class": "Strings",
+    "program_numbers": [51, 52],
+    "defs": [
+      "string_ensemble_essential.nkm",
+      "session_strings_pro_2_ensemble_modern.nkm",
+      "session_strings_pro_2_ensemble_traditional.nkm",
+      "string_ensemble.nkm"
+    ]
+  },
+
+  "Choir and Voice": {
+    "class": "Strings",
+    "program_numbers": [53, 54, 55],
+    "defs": [
+      "choir_a.nkm",
+      "choir_e.nkm",
+      "choir_o.nkm"
+    ]
+  },
+
+  "Trumpet": {
+    "class": "Brass",
+    "program_numbers": [57, 60],
+    "defs": [
+      "trumpet.nkm",
+      "trumpet_section.nkm",
+      "muted_trumpet.nkm",
+      "flugelhorn.nkm",
+      "mute_trumpet.nkm",
+      "trumpet_1.nkm",
+      "trumpet_2.nkm"
+    ]
+  },
+
+  "Trombone": {
+    "class": "Brass",
+    "program_numbers": [58],
+    "defs": [
+      "bass_trombone.nkm",
+      "trombone.nkm",
+      "trombone_section.nkm",
+      "tenor_trombone.nkm"
+    ]
+  },
+
+  "Tuba": {
+    "class": "Brass",
+    "program_numbers": [59],
+    "defs": [
+      "tuba.nkm"
+    ]
+  },
+
+  "French Horn": {
+    "class": "Brass",
+    "program_numbers": [61],
+    "defs": [
+      "horn_1_essential.nkm",
+      "horn_2_essential.nkm"
+    ]
+  },
+
+  "Brass Section": {
+    "class": "Brass",
+    "program_numbers": [62],
+    "defs": [
+      "session_horns_pro_keyswitch_60s_horns.nkm",
+      "session_horns_pro_keyswitch_generic_section.nkm",
+      "brass_quartet_essential.nkm"
+    ]
+  },
+
+  "Soprano/Alto Sax": {
+    "class": "Reed",
+    "program_numbers": [65, 66],
+    "defs": [
+      "alto_sax_vintage_solo.nkm",
+      "alto_saxophone.nkm",
+      "saxophone_essential.nkm",
+      "saxophones_essential.nkm",
+      "saxophone_section.nkm"
+    ]
+  },
+
+  "Tenor Sax": {
+    "class": "Reed",
+    "program_numbers": [67],
+    "defs": [
+      "tenor_sax.nkm",
+      "tenor_saxophone.nkm",
+      "saxophone_section.nkm",
+      "saxophone_essential.nkm",
+      "saxophones_essential.nkm"
+    ]
+  },
+
+  "Baritone Sax": {
+    "class": "Reed",
+    "program_numbers": [68],
+    "defs": [
+      "baritone_sax_vintage_solo.nkm",
+      "baritone_saxophone.nkm",
+      "saxophone_section.nkm",
+      "saxophone_essential.nkm",
+      "saxophones_essential.nkm",
+      "woodwind_quintet_essential.nkm",
+      "woodwind_quintet_essential.nkm"
+    ]
+  },
+
+  "Oboe": {
+    "class": "Reed",
+    "program_numbers": [69],
+    "defs": [
+      "oboe_essential.nkm",
+      "oboes_essential.nkm",
+      "french_oboe.nkm",
+      "oboe.nkm",
+      "woodwind_quintet_essential.nkm",
+      "woodwind_ensemble_essential.nkm"
+    ]
+  },
+
+  "English Horn": {
+    "class": "Reed",
+    "program_numbers": [70],
+    "defs": [
+      "english_horn.nkm",
+      "woodwind_quintet_essential.nkm",
+      "woodwind_ensemble_essential.nkm"
+    ]
+  },
+
+  "Bassoon": {
+    "class": "Reeds",
+    "program_numbers": [71],
+    "defs": [
+      "woodwind_quintet_essential.nkm",
+      "woodwind_ensemble_essential.nkm",
+      "bassoon_essential.nkm",
+      "bassoons_essential.nkm",
+      "bassoon_combi.nkm",
+      "bassoon.nkm"
+    ]
+  },
+
+  "Clarinet": {
+    "class": "Reed",
+    "program_numbers": [72],
+    "defs": [
+      "clarinet_combi.nkm",
+      "clarinet.nkm",
+      "clarinet_essential.nkm",
+      "clarinets_essential.nkm",
+      "woodwind_quintet_essential.nkm",
+      "woodwind_ensemble_essential.nkm"
+    ]
+  },
+
+  "Pipe": {
+    "class": "Pipe",
+    "program_numbers": [73, 74, 75, 76, 77, 78, 79, 80],
+    "defs": [
+      "flute_essential.nkm",
+      "flutes_essential.nkm",
+      "flute.nkm",
+      "piccolo.nkm"
+    ]
+  },
+
+  "Synth Lead": {
+    "class": "Synth Lead",
+    "program_numbers": [81, 82, 83, 84, 85, 86, 87, 88],
+    "defs": [
+      "cheesy_lead.nkm",
+      "crawling_lead.nkm",
+      "december_saw.nkm",
+      "douglas_lead.nkm",
+      "downforce_saw.nkm",
+      "guitar_lead.nkm",
+      "hard_n_dirty.nkm",
+      "hybrid_lead.nkm",
+      "mystic_lead.nkm",
+      "percussive_lead.nkm",
+      "pimped_analog_saw.nkm",
+      "poly_detuned_lead.nkm",
+      "processor_lead.nkm",
+      "reamped_lead.nkm"
+    ]
+  },
+
+  "Synth Pad" : {
+    "class": "Synth Pad",
+    "program_numbers": [89, 90, 91, 92, 93, 94, 95, 96 ],
+    "defs" : [
+      "across_the_pacific.nkm",
+      "ahoy.nkm",
+      "ambibella.nkm",
+      "april_pan.nkm",
+      "arctic_morning.nkm",
+      "belle_de_jour.nkm",
+      "cerulean.nkm",
+      "chrystal.nkm",
+      "cold_cave.nkm",
+      "daft.nkm",
+      "dawn_chorus.nkm",
+      "drifting_apart.nkm"
+    ]
+  },
+
+  "Ethnic": {
+    "class": "Ethnic",
+    "program_numbers": [],
+    "defs": [
+
+    ]
+  },
+
+  "Percussive": {
+    "class": "Percussive",
+    "program_numbers": [],
+    "defs": [
+
+    ]
+  },
+
+  "Sound Effects": {
+    "class": "Sound Effects",
+    "program_numbers": [],
+    "defs": [
+
+    ]
+  },
+
+  "Drums": {
+    "class": "Drums",
+    "program_numbers": [129],
+    "defs": [
+      "funk_kit.nkm",
+      "pop_kit.nkm",
+      "street_knowledge_kit.nkm",
+      "garage_kit_lite.nkm",
+      "session_kit_full.nkm",
+      "stadium_kit_full.nkm",
+      "ar_modern_sparkle_kit_full.nkm",
+      "ar_modern_white_kit_full.nkm"
+    ]
+  },
+
+  "Unknown": {
+    "class": "Unknown",
+    "program_numbers": [],
+    "defs": [
+
+    ]
+  }
+}

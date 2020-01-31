@@ -5,7 +5,6 @@ import numpy as np
 import time
 import errno
 import soundfile as sf
-import flac_converter
 
 try:
     sys.path.append(os.path.join('RenderMan-master', 'Builds', 'MacOSX', 'build', 'Debug'))
@@ -178,9 +177,12 @@ def make_output_dir(output_base_path, midi_path):
     """
     Output directories mirror the LMD directories. Except every midi file
     in LMD is instead a folder that has all of the sources and metadata.
-    :param output_base_path:
-    :param midi_path:
-    :return:
+    Args:
+        output_base_path:
+        midi_path:
+
+    Returns:
+
     """
     dirs = midi_path.split(os.sep)[-5:]  # get the last 4 directories and midi file name
     dirs[-1] = os.path.splitext(dirs[-1])[0]  # remove the extension from the file name
@@ -194,14 +196,11 @@ def file_ready_string(string):
     """
     Change a string from 'Something Like This" to "something_like_this"
     for ease of saving it as a filename or directory name.
-    :param string:
-    :return:
+    Args:
+        string:
+
+    Returns:
+
     """
     return string.replace(' ', '_').lower()
 
-
-def read_audio_file(path):
-    if os.path.splitext(path)[1] == '.wav':
-        return sf.read(path)
-    elif os.path.splitext(path)[1] == '.flac':
-        return flac_converter.read_flac_to_numpy(path)

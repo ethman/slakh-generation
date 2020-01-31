@@ -1,0 +1,23 @@
+{
+  "lmd_base_dir": "/Users/manilow/dataset/lmd_matched",
+  "kontakt_path": "/Library/Audio/Plug-Ins/Components/Kontakt.component",
+  "kontakt_defs_dir": "/Users/manilow/Library/Application Support/Native Instruments/Kontakt/default",
+  "user_defs_dir": "kontakt_defs",
+  "instrument_classes_file": "general_midi_inst_0based.json",
+  "defs_metadata_file": "classes_strict.json",
+  "output_dir": "/Volumes/data/manilow/generated_data/dataset3",
+  "renderman_sr": 44100,
+  "renderman_buf": 512,
+  "renderman_sleep": 20.0,
+  "renderman_restart_lim": 20,
+  "random_seed": 425,
+  "max_num_files": 2100,
+  "separate_drums": false,
+  "mix_normalization_factor": -13.0,
+  "mix_target_peak": -1.0,
+  "render_pgm0_as_piano": true,
+  "rerender_existing": false,
+  "band_definition_file": null,
+  "midi_file_list": "rock_band_files_min_overall.txt",
+  "zero_based_midi": true
+}

@@ -1,0 +1,31 @@
+{
+  "Bass": [
+    {
+      "rule_name": "min_max_octave",
+      "enabled": false,
+      "min": 35,
+      "max": 79
+    },
+    {
+      "rule_name": "shift_all_notes",
+      "enabled": true,
+      "shift": 12
+    }
+  ],
+  "Drums": [
+    {
+      "rule_name": "move_note",
+      "enabled": true,
+      "note_rules": [
+        {"old":  35, "new": 36},
+        {"old":  34, "new": 36},
+        {"old":  33, "new": 36},
+        {"old":  32, "new": 36},
+        {"old":  31, "new": 36},
+        {"old":  30, "new": 36},
+        {"old":  29, "new": 36},
+        {"old":  28, "new": 36}
+      ]
+    }
+  ]
+}

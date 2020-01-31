@@ -1,0 +1,9 @@
+{ "key": "class",
+  "band_def":
+      [
+        "Piano",
+        "Guitar",
+        "Bass",
+        "Drums"
+      ]
+}
