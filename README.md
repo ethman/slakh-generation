@@ -277,42 +277,42 @@ These two methods are not mutually exclusive.
 The second json file is `config.json`. This handles all of the parameters that get sent to the main
 script. Here is an annotated list of all of the variables:
 
-`lmd_base_dir`: Absolute path to base directory of the Lakh MIDI Dataset. (`str`)  
-`kontakt_path`: Absolute path to the `.component` for Kontakt. 
+- `lmd_base_dir`: Absolute path to base directory of the Lakh MIDI Dataset. (`str`)  
+- `kontakt_path`: Absolute path to the `.component` for Kontakt. 
 Usually `"/Library/Audio/Plug-Ins/Components/Kontakt.component"`. (`str`)   
-`kontakt_defs_dir`: Absolute path to the default Kontakt patch location. 
+- `kontakt_defs_dir`: Absolute path to the default Kontakt patch location. 
 Usually `"/Users/{{username}}/Library/Application Support/Native Instruments/Kontakt/default"`. 
 (`str`)     
-`user_defs_dir`: Path to directory containing user defined patches (`.nkm` files created in 
+- `user_defs_dir`: Path to directory containing user defined patches (`.nkm` files created in 
 step 2a, above). (`str`)  
-`instrument_classes_file`: Path to json file that defines MIDI program number and classes. 
+- `instrument_classes_file`: Path to json file that defines MIDI program number and classes. 
 Default `general_midi_inst_0.json`. (`str`)  
-`defs_metadata_file`: Path to your Instrument Definition Metadata File as defined above. (`str`)  
-`output_dir`: Absolute path to a base directory where audio will be output to. (`str`)  
-`renderman_sr`: Sample rate that the audio will be synthesized at. (44.1kHz) (`int`)  
-`renderman_buf`: Buffer size for the hosted VSTs. (`int`)  
-`renderman_sleep`: Sleep time (in seconds) after a VST is loaded. Kontakt needs time to load 
+- `defs_metadata_file`: Path to your Instrument Definition Metadata File as defined above. (`str`)  
+- `output_dir`: Absolute path to a base directory where audio will be output to. (`str`)  
+- `renderman_sr`: Sample rate that the audio will be synthesized at. (44.1kHz) (`int`)  
+- `renderman_buf`: Buffer size for the hosted VSTs. (`int`)  
+- `renderman_sleep`: Sleep time (in seconds) after a VST is loaded. Kontakt needs time to load 
 samples into memory. See [info in the gotchas below](#gotchas) (`float`)  
-`renderman_restart_lim`: The RenderMan engine can be glitchy (see below). This number is the of 
+- `renderman_restart_lim`: The RenderMan engine can be glitchy (see below). This number is the of 
 stem files RenderMan will make before restarting. See [info in the gotchas below](#gotchas) (`int`)  
-`random_seed`: Random seed for selecting MIDI files from the LMD. (`int`)  
-`max_num_files`: Total number of audio mixtures to generate. (`int`)  
-`separate_drums`: If true and if a MIDI file has multiple tracks for drums this will render them 
+- `random_seed`: Random seed for selecting MIDI files from the LMD. (`int`)  
+- `max_num_files`: Total number of audio mixtures to generate. (`int`)  
+- `separate_drums`: If true and if a MIDI file has multiple tracks for drums this will render them 
 all separately, else files like these get skipped. (`bool`)  
-`mix_normalization_factor`: Value (in dB) that each track is normalized to according to 
+- `mix_normalization_factor`: Value (in dB) that each track is normalized to according to 
 ITU-R BS.1770-4. (`float`)  
-`mix_target_peak`: Value (in dB) that the mix is normalized to once all the stems are summed 
+- `mix_target_peak`: Value (in dB) that the mix is normalized to once all the stems are summed 
 together. (`float`)  
-`render_pgm0_as_piano`: If true, MIDI program number 0 is interpreted as piano. Useful when using 
+- `render_pgm0_as_piano`: If true, MIDI program number 0 is interpreted as piano. Useful when using 
 1-based MIDI. (`bool`)  
-`rerender_existing`: If true, will overwrite existing audio files that have been synthesized. 
+- `rerender_existing`: If true, will overwrite existing audio files that have been synthesized. 
 Else, will skip files if they've been seen before. Useful for restarting from a previously 
 crashed session. (`str`)  
-`band_definition_file`: A path to a json file containing a band definition file. See step 3b for 
+- `band_definition_file`: A path to a json file containing a band definition file. See step 3b for 
 more details. Can be `null`. (`str`)  
-`midi_file_list`: A path to a text file with one MIDI file absolute path (from the LMD) per line. 
+- `midi_file_list`: A path to a text file with one MIDI file absolute path (from the LMD) per line. 
 See step 3b for more details. Can be `null`. (`str`)  
-`zero_based_midi`: If true, will read MIDI program numbers as 0-based. (`bool`)  
+- `zero_based_midi`: If true, will read MIDI program numbers as 0-based. (`bool`)  
 
 
 ## Step 4: Running data generation script
