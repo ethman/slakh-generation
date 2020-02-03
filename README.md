@@ -2,9 +2,9 @@
 # Introduction
 
 
-This is a project to synthesize large amounts of MIDI data into audio files. It is built with 
-the [Lakh MIDI Dataset v0.1](https://colinraffel.com/projects/lmd/) (LMD). We call this
-Synthesized Lakh, or Slakh for short. This repository contains everything you need to use
+This is a project to synthesize large amounts of MIDI data into audio files (1000s of hours). It is
+built with the [Lakh MIDI Dataset v0.1](https://colinraffel.com/projects/lmd/) (LMD). We call this
+*Synthesized Lakh*, or *Slakh* for short. This repository contains everything you need to use
 Native Instruments' Kontakt or other VSTs to synthesize large amounts of musical data.
 
 
