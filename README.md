@@ -364,6 +364,8 @@ All of the configurations for generation are defined in the json file, as format
 are old!)
 
  
+#### How this script works
+ 
 At a high level, this script works in three stages. 
 
 1. First it reads the MIDI files (either from the LMD or from a provided list of MIDI file paths)
@@ -383,6 +385,27 @@ to match `target_peak`.
 
 Each of these three stages is a giant function, these functions talk via dicts that collect the 
 required info for the next stage. 
+
+
+#### Script output
+
+The script outputs mixes, isolated audio tracks for each instrument, the original MIDI file, a set
+of split MIDI files for each instrument, and a yaml metadata file. All of these things are in a
+dedicated folder for every song. The script also outputs a (very large) log file where you can
+track the progress of the script. All audio is output as uncompressed wav files. For batch 
+compression of the audio to flac, see 
+[the Slakh utils repo for more info.](https://github.com/ethman/slakh-utils)
+
+
+#### Remarks on running time and storage
+
+This script takes quite a while to run. We used a 2015 Macbook Pro 13" with modest specs and it
+took on the order of days to generate 2100 mixes. (We had some storage problems, so I can't say
+for certain the exact run time). All in all, I would not be surprised if it took a week.
+
+On the subject of storage: we used a dedicated machine for this and network storage for the output.
+The machine itself had 500Gb of storage and most of it was dedicated to storing the large amount
+of sample data from Kontakt. The output of the script was another ~500Gb.
 
 
 ## Flakh & using FluidSynth
