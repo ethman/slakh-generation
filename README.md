@@ -412,9 +412,10 @@ The RenderMan engine is finicky. It can sometimes fail silently in that it does 
 issues, but it outputs waveforms of all `0`'s without notice. There are some checks for this in the
 code, but there is also a hard restart built into the code. I.e., the script will restart a new
 RenderMan engine after it synthesizes every *n* tracks (as defined by `renderman_restart_lim` 
-above). I don't know if this is a problem with RenderMan or Kontakt/other VSTs. I doubt the Native
-Instruments engineers planned for the type of massive processing of MIDI files that occurs in this
-repo.
+above). The engine restart seems to help this problem, but if you are experiencing issues play 
+around with this number. I don't know if the source of this problem stems from RenderMan or 
+the VSTs getting hosted (Kotakt, etc). But I doubt the Native Instruments engineers planned for the
+type of massive processing of MIDI files that occurs with this project.
 
 **Loading the Engine**  
 Some VSTs need a few seconds before they can accept note data to synthesize to audio. For instance,
