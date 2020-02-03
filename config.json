@@ -19,5 +19,6 @@
   "rerender_existing": false,
   "band_definition_file": null,
   "midi_file_list": "rock_band_files_min_overall.txt",
-  "zero_based_midi": true
+  "zero_based_midi": true,
+  "logfile_basename": "slakh_output"
 }

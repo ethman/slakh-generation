@@ -1,16 +1,12 @@
 pretty_midi
 librosa
-matplotlib
-seaborn
 scipy
 numpy
 SoundFile
 pyFluidSynth
 PyYAML
 pyloudnorm
-ffmpeg-python
 seaborn
 pandas
 pyfluidsynth
-# sox
-# pysox
+loguru

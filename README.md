@@ -30,7 +30,8 @@ A full dataset of synthesized data is available for download at the
 
 This repository contains all of the code, config files, and patches used to create the original 
 Slakh2100 dataset. The details regarding all of the settings used to make Slakh2100 are included in
-the file MakingSlakh.md included in this repo. This guide assumes you have downloaded the Lakh MIDI
+the file [MakingSlakh.md](https://github.com/ethman/slakh-generation/blob/master/MakingSlakh.md) 
+included in this repo. This guide assumes you have downloaded the Lakh MIDI
 Dataset (LMD) prior to using it.
 
 At the base of creating Slakh is a script called `render_by_instrument.py`, which looks for MIDI
@@ -61,7 +62,7 @@ more info, please visit [the Slakh website](www.slakh.com/).
 
 ## License and Attribution
   
-If you use Slakh2100 or generate data using the same method we ask that you cite it using the 
+If you use Slakh2100 or generate data using this method we ask that you cite it using the 
 following bibtex entry:
 
 ```
@@ -90,8 +91,9 @@ This code is licensed under an MIT license.
 
 RenderMan originally comes from [here](https://github.com/fedden/RenderMan), but the version used
 here is based on a forked version that allows reading of entire MIDI files at once. That's from
-[here](https://github.com/cannoneyed/RenderMan). This modified version is included in this repo
-(at `RenderMan-master/`).
+[here](https://github.com/cannoneyed/RenderMan). Our modified version is included in this repo
+(at `RenderMan-master/`). (Both linked versions RenderMan are in the public domain via
+an "unlicense".)
 
 
 - Open the RenderMan XCode project (`RenderMan-master/Builds/MacOSX/RenderMan.xcodeproj`),
@@ -122,8 +124,7 @@ to add the paths from boost and boost-python to get it to build
 
 (Note: I was able to build with XCode 10.2.1 on OS X 10.14.6, and boost/boost-python 1.72.0)
 
-- Press `[cmd]`-`[b]` to build. Make sure to build in Debug mode. Currently this is hard coded 
-later.
+- Press `[cmd]`-`[b]` to build. Make sure to build in Debug mode. Currently this is hard coded.
 
 - If it builds successfully, you should have a file called `librenderman.so.dylib` 
 (in `RenderMan-master/Builds/MacOSX/build/Debug/`). Rename that file to
@@ -139,6 +140,12 @@ We used Kontakt Komplete 12, but any version of Kontakt with some instrument pac
 You will need to know the absolute path to the `Kontakt.component`, and the path to any other
 `.component` files for every VST that you use.  (Usually found in 
 `/Library/Audio/Plug-Ins/Components/`)
+
+If you don't want to shell out $_$ before testing this project, you can download a set of free
+Kontakt patches 
+[here](https://www.native-instruments.com/en/products/komplete/bundles/komplete-start/) 
+and get the Kontakt 6 player
+[here](https://www.native-instruments.com/en/products/komplete/samplers/kontakt-6-player/).
 
 ### Step 2a: Make Kontakt patches/presets
 
@@ -237,6 +244,20 @@ throughout this script, they have tacked onto the end of the list as such.
 All 129 program numbers should be assigned to something. If there are patches you do not want to 
 synthesize, they should be represented here with an empty list for `"defs"`.
 
+There are two provided example instrument definition files: 
+
+1. `classes_lax.json` maps MIDI instrument program numbers to patches along the separations defined 
+in the MIDI spec (as seen in `general_midi_inst_0.txt`), with little thought given to more
+granular splitting. In other words, all brass instruments patches (trumpets, trombones, tubas, 
+brass sections) get mapped to the same output track.
+
+2. `classes_strict.json` does a more keen segmentation of different instrument types, splitting up
+MIDI instrument program numbers into logical groups. For instance, acoustic guitars, clean electric
+guitars, and distorted electric guitars are all separately rendered patches.
+
+These two files require Kontakt Komplete 12 to work, but if you don't have that you can use them
+as a guide for creating your own instrument definitions.
+
 
 ### Step 3b: Band Definition file and MIDI file lists
 
@@ -269,7 +290,7 @@ absolute paths to MIDI files (one per line). If this is provided, the script wil
 the LMD to find MIDI file candidates, but rather will look through the provided list. This is nice
 if you need to rerender a specific set of files for some reason.
 
-These two methods are not mutually exclusive.
+These two methods are not mutually exclusive. You can use both simultaneously or neither.
 
 
 ### Step 3c: `config.json`
@@ -313,6 +334,7 @@ more details. Can be `null`. (`str`)
 - `midi_file_list`: A path to a text file with one MIDI file absolute path (from the LMD) per line. 
 See step 3b for more details. Can be `null`. (`str`)  
 - `zero_based_midi`: If true, will read MIDI program numbers as 0-based. (`bool`)  
+- `logfile_basename`: Base file name containing the program's logs. (`str`)
 
 
 ## Step 4: Running data generation script
@@ -356,8 +378,8 @@ is summed to make an instantaneous mixture. The peak of that mixture is calculat
 above `target_peak` (in dB, from `config.json`), the gain of the mixture and each track are lowered
 to match `target_peak`.
 
-Each of these three stages is a giant function, these functions talk via dicts that have the 
-required info about 
+Each of these three stages is a giant function, these functions talk via dicts that collect the 
+required info for the next stage. 
 
 
 ## Flakh & using FluidSynth

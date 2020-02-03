@@ -1,6 +1,7 @@
 #!/usr/bin/sudo python
 
 import os
+import sys
 import time
 import json
 import numpy as np
@@ -17,25 +18,35 @@ import pretty_midi
 import utils
 import pyloudnorm as pyln
 import midi_inst_rules
-
-log_filename = 'dataset3_take7_3-4-2019.txt'
-logging.basicConfig(format='%(asctime)s  %(levelname)-10s : %(message)s',
-                    level=logging.INFO, filename=log_filename)
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 def select_patch_rand(defs_dict, id_):
     """
+    Selects a patch at random
+    Args:
+        defs_dict:
+        id_:
 
-    :param defs_dict:
-    :param id_:
-    :return:
+    Returns:
+
     """
     idx = np.random.randint(0, len(defs_dict[id_]))
     return defs_dict[id_][idx]
 
 
 def invert_defs_dict(defs_dict):
+    """
+    Inverts the definitions dictionary such that
+    the instrument program numbers are the keys
+    and the
+
+    Args:
+        defs_dict (dict):
+
+    Returns:
+
+    """
     result = {}
 
     for v in defs_dict.values():
@@ -60,12 +71,27 @@ def make_src_by_inst(defs_dict):
 def check_midi_file(midi_path, inst_classes, pgm0_is_piano,
                     band_classes_def=None, separate_drums=False):
     """
+    Determines if this MIDI file is okay. Will reject a MIDI file
+    if any of the following are true:
+        - MIDI file cannot be read
+        - The number of unique instruments is less than 2
+        - separate_drums is False and there is more than 1 drum track
+        - band_classes_def is provided and this file does not have
+          the required instruments
 
-    :param midi_path:
-    :param inst_classes:
-    :param pgm0_is_piano:
-    :param band_classes_def:
-    :return:
+    If none of the above are true, the loaded PrettyMIDI object
+    will be returned.
+
+    Args:
+        midi_path (str): Path to candidate MIDI file.
+        inst_classes (dict): Instrument classes/MIDI program numbers and classes.
+        pgm0_is_piano (bool): Whether to consider program 0 as piano.
+        band_classes_def (dict): (Optional) Band definition dictionary.
+        separate_drums (bool): Whether separate drum tracks are okay.
+
+    Returns:
+        False if this file fails any of the above checks,
+        A loaded PrettyMIDI object otherwise.
     """
     try:
         pm = pretty_midi.PrettyMIDI(midi_path)
@@ -123,11 +149,14 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
                  same_pgms_diff=False, separate_drums=False, zero_based_midi=False):
     """
     Loops through a list of `midi_paths` until `max_num_files` have been flagged for
-    synthesis
+    synthesis. For each file flagged for synthesis, the MIDI file is copied to the
+    output directory and each individual track split of into its own MIDI file.
+    Each MIDI instrument track is also assigned a synthesis patch.
+
     Args:
-        midi_paths:
-        max_num_files:
-        output_base_dir:
+        midi_paths (list): List of paths to MIDI files.
+        max_num_files (int): Total number of files to render.
+        output_base_dir (str): Base directory where output will be stored.
         inst_classes:
         defs_dict:
         pgm0_is_piano:
@@ -258,6 +287,22 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
 
 def render_sources(src_by_inst, sr, buf, kontakt_path, def_dir, dest_dir, sleep=7.0, restart_lim=50,
                    rerender_existing=False):
+    """
+
+    Args:
+        src_by_inst:
+        sr:
+        buf:
+        kontakt_path:
+        def_dir:
+        dest_dir:
+        sleep:
+        restart_lim:
+        rerender_existing:
+
+    Returns:
+
+    """
 
     output_dirs = []
     inst_cnt = 0
@@ -350,6 +395,18 @@ def render_sources(src_by_inst, sr, buf, kontakt_path, def_dir, dest_dir, sleep=
 
 
 def normalize_and_mix(output_dirs, sr, normalization_factor, target_peak, remix_existing=False):
+    """
+
+    Args:
+        output_dirs:
+        sr:
+        normalization_factor:
+        target_peak:
+        remix_existing:
+
+    Returns:
+
+    """
 
     logger.info('Starting mixing...')
     meter = pyln.Meter(sr)
@@ -419,9 +476,12 @@ def normalize_and_mix(output_dirs, sr, normalization_factor, target_peak, remix_
 
 
 def run(config_file_path):
+    config = json.load(open(config_file_path, 'r'))
+    logfile = config['logfile_basename'] + '_{time}.log'
+    logger.add(logfile, format="{time} | {level} | {message}", level="INFO")
+
     start = time.time()
     logger.info('Using config file: {}, with settings as follows...'.format(config_file_path))
-    config = json.load(open(config_file_path, 'r'))
     logger.info('~' * 50)
     logger.info('Parameters:')
     for k, v in config.items():
@@ -490,6 +550,8 @@ def run(config_file_path):
     )
     dur = time.time() - start
     logger.info('Finished {} files in {} seconds'.format(max_num_files, dur))
+    logger.info('Output audio is at {}'.format(output_dir))
+    logger.info('Bye!')
 
 
 if __name__ == '__main__':
