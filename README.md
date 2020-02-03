@@ -131,6 +131,9 @@ to add the paths from boost and boost-python to get it to build
 `librenderman.so`. And now RenderMan is set up!
 
 
+Details for how to do to other things with RenderMan are provided in the RenderMan folder or
+in the RenderMan repos. These details are not required to continue working with this guide.
+
 ## Step 2: Install/Setup Kontakt and/or other Synthesis VSTs
 
 See Native Instruments' website for details on installing Kontakt. I don't believe there are any
@@ -248,8 +251,8 @@ There are two provided example instrument definition files:
 
 1. `classes_lax.json` maps MIDI instrument program numbers to patches along the separations defined 
 in the MIDI spec (as seen in `general_midi_inst_0.txt`), with little thought given to more
-granular splitting. In other words, all brass instruments patches (trumpets, trombones, tubas, 
-brass sections) get mapped to the same output track.
+granular splitting. In other words, all guitar instrument patches (acoustic guitars, clean electric
+guitars, and distorted electric guitars) get mapped to the same patch.
 
 2. `classes_strict.json` does a more keen segmentation of different instrument types, splitting up
 MIDI instrument program numbers into logical groups. For instance, acoustic guitars, clean electric
@@ -413,7 +416,7 @@ above). I don't know if this is a problem with RenderMan or Kontakt/other VSTs. 
 Instruments engineers planned for the type of massive processing of MIDI files that occurs in this
 repo.
 
-**Loading the Engine**
+**Loading the Engine**  
 Some VSTs need a few seconds before they can accept note data to synthesize to audio. For instance,
 Kontakt needs to load gigabytes of sample data into memory. Therefore, there is a sleep timer set
 when a VST is initially loaded to let the VST completely load. If you are having trouble, open up
