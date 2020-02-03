@@ -404,7 +404,7 @@ swap between parsing 1-based and 0-based MIDI files. 0-based is a good setting f
 I recommend **NOT** parallelizing this script as loading many patches at once is quite resource
 intensive. **If you are planning on synthesizing many hours of audio give yourself time!** That 
 being said, I did try a few ways to speed this up and the three stage process outlined above seems 
-best, but if you do figure out a more way to efficiently parallelize this type of data generation,
+best, but if you do figure out a more efficient way to parallelize this type of data generation,
 please let me know!
 
 **Restarting the Engine**  
