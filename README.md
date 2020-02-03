@@ -154,7 +154,7 @@ and get the Kontakt 6 player
 
 The process for making Kontakt patches is a little involved so I'll outline it here. This
 doesn't apply for other VSTs, which might have their own method for storing and recalling
-presents.
+presets.
 
 Using Kontakt Player 6:
 1. Open Kontakt, find a sampler/patch that you like.
