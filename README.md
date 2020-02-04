@@ -166,7 +166,7 @@ currently loaded.
 
 Here's a gif of this process:
 
-![Saving an nkm file](https://github.com/ethman/slakh-generation/img/saving_nkm.png "Saving an nkm file")
+![Saving an nkm file](https://github.com/ethman/slakh-generation/blob/master/img/saving_nkm.gif "Saving an nkm file")
 
 
 **NOTE: We used a Kontakt Komplete 12 (2018), which may have patches (`.nkm` files) that might
