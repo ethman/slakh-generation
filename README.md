@@ -9,7 +9,7 @@ Native Instruments' Kontakt or other VSTs to synthesize large amounts of musical
 
 
 A full dataset of synthesized data is available for download at the 
-[Slakh project website](www.slakh.com/).
+[Slakh project website](https://www.slakh.com/).
 
 
 ## Table of Contents

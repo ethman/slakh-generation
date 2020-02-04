@@ -11,4 +11,4 @@ are only available with Kontakt Komplete 12. There is one non-Kontakt patch also
 
 The included file `config.json` is set up exactly as it was on the machine used to generate
 Slakh2100. The only thing you'll need to change is the absolute paths. Slakh2100 used 
-`classes_strict.json` as its Instrument Definition Metadata File.
+`instr_defs_metadata/komplete_strict.json` as its Instrument Definition Metadata File.
