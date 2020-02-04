@@ -533,7 +533,7 @@ def run(config_file_path):
         config['renderman_sr'],
         config['renderman_buf'],
         config['kontakt_path'],
-        config['user_defs_dir'],
+        config['user_nkms_dir'],
         config['kontakt_defs_dir'],
         sleep=config['renderman_sleep'],
         rerender_existing=config['rerender_existing']

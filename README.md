@@ -164,6 +164,11 @@ currently loaded.
 4. Save. Keep track of this location.
 
 
+Here's a gif of this process:
+
+![Saving an nkm file](https://github.com/ethman/slakh-generation/img/saving_nkm.png "Saving an nkm file")
+
+
 **NOTE: We used a Kontakt Komplete 12 (2018), which may have patches (`.nkm` files) that might
 not be present on your system. Make sure to check prior to running.** 
 
@@ -207,7 +212,7 @@ synthesis.
 
 
 
-Example from `classes_strict.json`:
+Example from `komplete_strict.json`:
 ```json
 {
   "Acoustic Piano" : {
@@ -249,12 +254,12 @@ synthesize, they should be represented here with an empty list for `"defs"`.
 
 There are two provided example instrument definition files: 
 
-1. `classes_lax.json` maps MIDI instrument program numbers to patches along the separations defined 
+1. `komplete_lax.json` maps MIDI instrument program numbers to patches along the separations defined 
 in the MIDI spec (as seen in `general_midi_inst_0.txt`), with little thought given to more
 granular splitting. In other words, all guitar instrument patches (acoustic guitars, clean electric
 guitars, and distorted electric guitars) get mapped to the same patch.
 
-2. `classes_strict.json` does a more keen segmentation of different instrument types, splitting up
+2. `komplete_strict.json` does a more keen segmentation of different instrument types, splitting up
 MIDI instrument program numbers into logical groups. For instance, acoustic guitars, clean electric
 guitars, and distorted electric guitars are all separately rendered patches.
 
@@ -307,7 +312,7 @@ Usually `"/Library/Audio/Plug-Ins/Components/Kontakt.component"`. (`str`)
 - `kontakt_defs_dir`: Absolute path to the default Kontakt patch location. 
 Usually `"/Users/{{username}}/Library/Application Support/Native Instruments/Kontakt/default"`. 
 (`str`)     
-- `user_defs_dir`: Path to directory containing user defined patches (`.nkm` files created in 
+- `user_nkms_dir`: Path to directory containing user defined patches (`.nkm` files created in 
 step 2a, above). (`str`)  
 - `instrument_classes_file`: Path to json file that defines MIDI program number and classes. 
 Default `general_midi_inst_0.json`. (`str`)  
@@ -401,7 +406,7 @@ compression of the audio to flac, see
 
 This script takes quite a while to run. We used a 2015 Macbook Pro 13" with modest specs and it
 took on the order of days to generate 2100 mixes. (We had some storage problems, so I can't say
-for certain the exact run time). All in all, I would not be surprised if it took a week.
+for certain the exact run time). All in all, I would not be surprised if it took a week or more.
 
 On the subject of storage: we used a dedicated machine for this and network storage for the output.
 The machine itself had 500Gb of storage and most of it was dedicated to storing the large amount

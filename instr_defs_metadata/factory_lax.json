@@ -1,0 +1,124 @@
+{
+  "Piano" : {
+    "class": "Piano",
+    "program_numbers": [0, 1, 2, 3, 4, 5, 6, 7],
+    "defs": [
+      "clavinet.nkm",
+      "electric_piano.nkm",
+      "ragtime_piano.nkm"
+    ]
+  },
+
+  "Chromatic Percussion": {
+    "class": "Chromatic Percussion",
+    "program_numbers": [8, 9, 10, 11, 12, 13, 14, 15],
+    "defs": []
+  },
+
+  "Organ": {
+    "class": "Organ",
+    "program_numbers": [16, 17, 18, 19, 20, 21, 22, 23],
+    "defs": [
+      "jazz_organ.nkm"
+    ]
+  },
+
+  "Guitar": {
+    "class": "Guitar",
+    "program_numbers": [24, 25, 26, 27, 28, 29, 30, 31],
+    "defs": [
+      "rock_guitar.nkm",
+      "jazz_guitar.nkm"
+    ]
+  },
+
+  "Bass": {
+    "class": "Bass",
+    "program_numbers": [32, 33, 34, 35, 36, 37, 38, 39],
+    "defs": [
+      "classic_bass.nkm",
+      "funk_bass.nkm",
+      "upright_bass.nkm"
+    ]
+  },
+
+  "Strings": {
+    "class": "Strings",
+    "program_numbers": [40, 41, 42, 43, 44, 45, 46, 47],
+    "defs": []
+  },
+
+  "Strings (continued)": {
+    "class": "Strings (continued)",
+    "program_numbers": [48, 49, 50, 51, 52, 53, 54, 55],
+    "defs": []
+  },
+
+  "Brass": {
+    "class": "Brass",
+    "program_numbers": [56, 57, 58, 59, 60, 61, 62, 63],
+    "defs": [
+      "muted_trumpet.nkm"
+    ]
+  },
+
+  "Reed": {
+    "class": "Reed",
+    "program_numbers": [64, 65, 66, 67, 68, 69, 70, 71],
+    "defs": []
+  },
+
+  "Pipe": {
+    "class": "Pipe",
+    "program_numbers": [72, 73, 74, 75, 76, 77, 78, 79],
+    "defs": []
+  },
+
+  "Synth Lead": {
+    "class": "Synth Lead",
+    "program_numbers": [80, 81, 82, 83, 84, 85, 86, 87],
+    "defs": []
+  },
+
+  "Synth Pad": {
+    "class": "Synth Pad",
+    "program_numbers": [88, 89, 90, 91, 92, 93, 94, 95],
+    "defs": []
+  },
+
+  "Ethnic": {
+    "class": "Ethnic",
+    "program_numbers": [],
+    "defs": []
+  },
+
+  "Percussive": {
+    "class": "Percussive",
+    "program_numbers": [],
+    "defs": []
+  },
+
+  "Sound Effects": {
+    "class": "Sound Effects",
+    "program_numbers": [],
+    "defs": []
+  },
+
+  "Drums": {
+    "class": "Drums",
+    "program_numbers": [129],
+    "defs": [
+      "funk_kit.nkm",
+      "pop_kit.nkm",
+      "street_knowledge_kit.nkm"
+    ]
+  },
+
+  "Unknown": {
+    "class": "Unknown",
+    "program_numbers": [],
+    "defs": [
+
+    ]
+  }
+}
