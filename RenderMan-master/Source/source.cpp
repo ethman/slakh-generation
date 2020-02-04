@@ -158,6 +158,16 @@ namespace wrap
         {
             return vectorToList (RenderEngine::getRMSFrames());
         }
+        
+        std::string wrapperGetProgramName()
+        {
+            return RenderEngine::getProgramName().toStdString();
+        }
+        
+        std::string wrapperGetPluginName()
+        {
+            return RenderEngine::getPluginName().toStdString();
+        }
     };
 }
 
@@ -185,5 +195,7 @@ BOOST_PYTHON_MODULE(librenderman)
     .def("remove_overriden_plugin_parameter", &RenderEngineWrapper::removeOverridenParameter)
     .def("get_audio_frames", &RenderEngineWrapper::wrapperGetAudioFrames)
     .def("get_rms_frames", &RenderEngineWrapper::wrapperGetRMSFrames)
-    .def("write_to_wav", &RenderEngineWrapper::writeToWav);
+    .def("write_to_wav", &RenderEngineWrapper::writeToWav)
+    .def("get_program_name", &RenderEngineWrapper::wrapperGetProgramName)
+    .def("get_plugin_name", &RenderEngineWrapper::wrapperGetPluginName);
 }

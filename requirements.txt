@@ -1,12 +1,5 @@
 pretty_midi
-librosa
-scipy
 numpy
 SoundFile
-pyFluidSynth
 PyYAML
 pyloudnorm
-seaborn
-pandas
-pyfluidsynth
-loguru

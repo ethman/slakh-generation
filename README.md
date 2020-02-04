@@ -131,6 +131,9 @@ to add the paths from boost and boost-python to get it to build
 `librenderman.so`. And now RenderMan is set up!
 
 
+See [Gotchas](#gotchas) below if you get this error: 
+`__init__() should return None, not 'NoneType'`.
+
 Details for how to do to other things with RenderMan are provided in the RenderMan folder or
 in the RenderMan repos. These details are not required to continue working with this guide.
 
@@ -148,7 +151,9 @@ If you don't want to shell out $_$ before testing this project, you can download
 Kontakt patches 
 [here](https://www.native-instruments.com/en/products/komplete/bundles/komplete-start/) 
 and get the Kontakt 6 player
-[here](https://www.native-instruments.com/en/products/komplete/samplers/kontakt-6-player/).
+[here](https://www.native-instruments.com/en/products/komplete/samplers/kontakt-6-player/). There
+are a set of config files and nkms (labeled "Factory") that will work with the free version of
+Kontakt.
 
 ### Step 2a: Make Kontakt patches/presets
 
@@ -169,10 +174,8 @@ Here's a gif of this process:
 ![Saving an nkm file](https://github.com/ethman/slakh-generation/blob/master/img/saving_nkm.gif "Saving an nkm file")
 
 
-**NOTE: We used a Kontakt Komplete 12 (2018), which may have patches (`.nkm` files) that might
-not be present on your system. Make sure to check prior to running.** 
-
-
+**NOTE:** Slakh used Kontakt Komplete 12 (2018), which may have patches (`.nkm` files) that might
+not be present on your system. Make sure to check prior to running. These are labeled `komplete`.
 
 ## Step 3: Set up the json files
 
@@ -452,4 +455,13 @@ when a VST is initially loaded to let the VST completely load. If you are having
 your VST with a full DAW (Logic, Ableton, etc) and time it a few times to make sure you have given
 it enough sleep time.
 
+**Error when running:** `__init__() should return None, not 'NoneType'`  
+This is a linker issue. The python that you built RenderMan against is different than the python
+you're running the script with. The easiest way to fix this is to use `install_name_tool`. I was
+able to run the following command to get RenderMan working:
+`install_name_tool -change /System/Library/Frameworks/Python.framework/Versions/2.7/Python /Users/{{MAC_USERNAME}}/anaconda2/envs/slakh_gen/lib/libpython2.7.dylib librenderman.so`
+from the RenderMan-master build directory, where the path is to the `libpython2.7.dylib` of your
+desired conda environment.
+For more info see [this github post](https://stackoverflow.com/questions/20437769/boost-python-init-should-return-none-not-nonetype)
+or [this one.](https://stackoverflow.com/questions/55238021/typeerror-init-should-return-none-not-nonetype-with-python-boost)
 

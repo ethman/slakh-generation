@@ -1,24 +1,29 @@
 #!/usr/bin/sudo python
 
 import os
-import sys
 import time
 import json
-import numpy as np
-import soundfile as sf
 import copy
-import yaml
 import argparse
-import logging
 import collections
 import shutil
 import random
+import logging
+from datetime import datetime
 
+import numpy as np
+import soundfile as sf
+import yaml
 import pretty_midi
-import utils
 import pyloudnorm as pyln
+
+import utils
 import midi_inst_rules
-from loguru import logger
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s | %(levelname)s |  %(message)s')
+logger = logging.getLogger(__name__)
+
 
 
 def select_patch_rand(defs_dict, id_):
@@ -203,7 +208,8 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
             'lmd_midi_dir': os.path.sep.join(path.split(os.path.sep)[-6:]),
             'midi_dir': midi_out_dir,
             'audio_dir': audio_out_dir,
-            'UUID': uuid
+            'UUID': uuid,
+            'stems': {}
         }
         seen_pgms = {}
 
@@ -215,10 +221,10 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
             inst_cls = utils.get_inst_class(inst_classes, inst, pgm0_is_piano)
 
             # Set up metadata
-            metadata[key] = {}
-            metadata[key]['inst_class'] = inst_cls
-            metadata[key]['is_drum'] = inst.is_drum
-            metadata[key]['midi_program_name'] = utils.get_inst_program_name(inst_classes,
+            metadata['stems'][key] = {}
+            metadata['stems'][key]['inst_class'] = inst_cls
+            metadata['stems'][key]['is_drum'] = inst.is_drum
+            metadata['stems'][key]['midi_program_name'] = utils.get_inst_program_name(inst_classes,
                                                                              inst, pgm0_is_piano)
 
             if inst.is_drum:
@@ -230,12 +236,12 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
             else:
                 program_num = int(inst.program)
 
-            metadata[key]['program_num'] = program_num
-            metadata[key]['midi_saved'] = False
-            metadata[key]['audio_rendered'] = False
+            metadata['stems'][key]['program_num'] = program_num
+            metadata['stems'][key]['midi_saved'] = False
+            metadata['stems'][key]['audio_rendered'] = False
 
             if program_num not in inv_defs_dict or len(inv_defs_dict[program_num]) < 1:
-                metadata[key]['plugin_name'] = 'None'
+                metadata['stems'][key]['plugin_name'] = 'None'
                 logger.info('No instrument loaded for \'{}\' (skipping).'.format(inst_cls))
                 continue
 
@@ -246,7 +252,7 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
                 selected_patch = select_patch_rand(inv_defs_dict, program_num)
                 seen_pgms[program_num] = selected_patch
 
-            metadata[key]['plugin_name'] = selected_patch
+            metadata['stems'][key]['plugin_name'] = selected_patch
 
             # Save the info we need for the next stages
             render_info = {'metadata': os.path.join(output_dir, 'metadata.yaml'),
@@ -269,7 +275,7 @@ def prepare_midi(midi_paths, max_num_files, output_base_dir, inst_classes, defs_
             midi_stem.write(midi_out_path)
 
             if os.path.isfile(midi_out_path):
-                metadata[key]['midi_saved'] = True
+                metadata['stems'][key]['midi_saved'] = True
                 logger.info('Wrote {}.mid. Selected patch \'{}\''.format(key, selected_patch))
 
         if not rerender_existing:
@@ -350,7 +356,7 @@ def render_sources(src_by_inst, sr, buf, kontakt_path, def_dir, dest_dir, sleep=
                 midi_file_path = os.path.abspath(os.path.join(metadata['midi_dir'],
                                                               '{}.mid'.format(source_key)))
 
-                metadata[source_key]['plugin_preset_name'] = eng.get_program_name()
+                metadata['stems'][source_key]['plugin_preset_name'] = eng.get_program_name()
 
                 # Set and save params here
                 # _, metadata[source_key]['parameters'] = utils.set_parameters(eng)
@@ -379,7 +385,7 @@ def render_sources(src_by_inst, sr, buf, kontakt_path, def_dir, dest_dir, sleep=
                 if os.path.isfile(audio_out_path):
                     logger.info('Wrote {} to disk'.format(audio_out_path))
                     output_dirs.append(os.path.dirname(audio_out_path))
-                    metadata[source_key]['audio_rendered'] = True
+                    metadata['stems'][source_key]['audio_rendered'] = True
                 else:
                     logger.warning('Could not write {}!'.format(audio_out_path))
 
@@ -388,7 +394,7 @@ def render_sources(src_by_inst, sr, buf, kontakt_path, def_dir, dest_dir, sleep=
 
             del eng
         except Exception as e:
-            logger.warning('Got exception type {} loading {}. Skipping...'.format(e.message, inst))
+            logger.warning("Got exception '{}' when loading {}. Skipping...".format(e.message, inst))
 
     logger.info('Finished rendering audio')
     return list(set(output_dirs))
@@ -434,9 +440,9 @@ def normalize_and_mix(output_dirs, sr, normalization_factor, target_peak, remix_
 
             for j, n, in enumerate(all_audio.keys()):
                 k = os.path.splitext(n)[0]
-                if k not in metadata:
-                    metadata[k] = {}
-                metadata[k]['integrated_loudness'] = float(loudnesses[j])
+                if k not in metadata['stems']:
+                    metadata['stems'][k] = {}
+                metadata['stems'][k]['integrated_loudness'] = float(loudnesses[j])
 
             if np.any(np.isinf(loudnesses)):
                 raise RuntimeError('One or more sources have -inf loudness!')
@@ -477,16 +483,23 @@ def normalize_and_mix(output_dirs, sr, normalization_factor, target_peak, remix_
 
 def run(config_file_path):
     config = json.load(open(config_file_path, 'r'))
-    logfile = config['logfile_basename'] + '_{time}.log'
-    logger.add(logfile, format="{time} | {level} | {message}", level="INFO")
+    logfile = config['logfile_basename'] + '_{}.log'.format(datetime.now()
+                                                            .strftime("%Y-%m-%d_%H:%M:%S"))
+    f_handler = logging.FileHandler(logfile)
+    f_format = logging.Formatter('%(asctime)s | %(levelname)s | %(message)s')
+    f_handler.setFormatter(f_format)
+    f_handler.setLevel(logging.INFO)
+    logger.addHandler(f_handler)
 
     start = time.time()
-    logger.info('Using config file: {}, with settings as follows...'.format(config_file_path))
     logger.info('~' * 50)
+    logger.info('Using config file: {}, with settings as follows...'.format(config_file_path))
+    logger.info('')
     logger.info('Parameters:')
     for k, v in config.items():
         logger.info('{}: {}'.format(k, v))
     logger.info('~' * 50)
+    logger.info('')
     logger.info('Starting script...')
 
     lmd_base_dir = config['lmd_base_dir']

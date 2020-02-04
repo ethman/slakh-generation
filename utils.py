@@ -4,14 +4,10 @@ import shutil
 import numpy as np
 import time
 import errno
-import soundfile as sf
 
-try:
-    sys.path.append(os.path.join('RenderMan-master', 'Builds', 'MacOSX', 'build', 'Debug'))
+sys.path.append(os.path.join('RenderMan-master', 'Builds', 'MacOSX', 'build', 'Debug'))
 
-    import librenderman as rm
-except ImportError:
-    pass
+import librenderman as rm
 
 
 def copy_and_rename_def(src_dir, src_file, dest_dir):
