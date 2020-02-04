@@ -151,9 +151,9 @@ If you don't want to shell out $_$ before testing this project, you can download
 Kontakt patches 
 [here](https://www.native-instruments.com/en/products/komplete/bundles/komplete-start/) 
 and get the Kontakt 6 player
-[here](https://www.native-instruments.com/en/products/komplete/samplers/kontakt-6-player/). There
-are a set of config files and nkms (labeled "Factory") that will work with the free version of
-Kontakt.
+[here](https://www.native-instruments.com/en/products/komplete/samplers/kontakt-6-player/).
+I have also included a set of config files and nkms (labeled "Factory") that will work with the
+free version of Kontakt.
 
 ### Step 2a: Make Kontakt patches/presets
 
