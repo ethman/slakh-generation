@@ -210,7 +210,7 @@ Annotated:
 a number from this list is seen, a random VST from the `"defs"` list will be selected for
 synthesis. 
 
-`"defs"`: A list containing either ".nkm" filenames (in the `user_defs_dir` specified in
+`"defs"`: A list containing either ".nkm" filenames (from the `user_nkms_dir` specified in
 `config.json`), or absolute paths to VST `.component` files.
 
 
@@ -363,7 +363,7 @@ included in this repo.
 The data generation script is `render_by_instrument.py`. Call it like so:
  
 ```bash
-python render_by_instrument.py --config path/to/config.json
+python render_by_instrument.py --config-file path/to/config.json
 ``` 
 
 All of the configurations for generation are defined in the json file, as formatted above.
