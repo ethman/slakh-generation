@@ -57,7 +57,7 @@ test (225 tracks) subsets, totaling **145 hours** of mixtures.
 
 Slakh is brought to you by [Mitsubishi Electric Research Lab (MERL)](http://www.merl.com/) and 
 the [Interactive Audio Lab at Northwestern University](http://music.cs.northwestern.edu/). For 
-more info, please visit [the Slakh website](www.slakh.com/).
+more info, please visit [the Slakh website](http://www.slakh.com/).
 
 
 ## License and Attribution
