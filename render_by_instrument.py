@@ -514,9 +514,11 @@ def run(config_file_path):
             midi_file_paths = f.read().splitlines()
         logger.info('Read midi file list from {}'.format(config['midi_file_list']))
     else:
-        midi_file_paths = [os.path.join(root, name)
-                           for root, dirs, files in os.walk(lmd_base_dir)
-                           for name in files if os.path.splitext(name)[1] == '.mid']
+        # make sure we get only unique MIDI files (names are md5 checksums)
+        midi_file_paths_dict = {name: os.path.join(root, name)
+                                for root, dirs, files in os.walk(lmd_base_dir)
+                                for name in files if os.path.splitext(name)[1] == '.mid'}
+        midi_file_paths = list(midi_file_paths_dict.values())
         logger.info('Traversed LMD directory structure.')
     np.random.shuffle(midi_file_paths)
 
